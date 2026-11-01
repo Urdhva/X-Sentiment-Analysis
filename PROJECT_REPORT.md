@@ -4,7 +4,7 @@
 **Subject:** Natural Language Processing (CS-471 / Sem 7)  
 **Project Workspace:** `twitter-sentiment-analysis/`  
 **Target Repository:** `X-Sentiment-Analysis`  
-**Status:** Phase A, Phase B, Phase C, Phase D & Phase E Complete (Requirements, Exploration, Preprocessing, Implementation & Postprocessing — 2026 Edition)  
+**Status:** All Phases A–F Complete (Requirements, Exploration, Preprocessing, Implementation, Postprocessing & Project Presentation — 2026 Edition)  
 **Date:** November 2026  
 
 ---
@@ -51,7 +51,13 @@
    - [5. Multi-Stage Post-Processing Data Snapshots](#5-multi-stage-post-processing-data-snapshots)
    - [6. Word Cloud Analysis: Before vs. After Post-Processing](#6-word-cloud-analysis-before-vs-after-post-processing)
    - [7. Quantitative Impact of Post-Processing](#7-quantitative-impact-of-post-processing)
-6. [Roadmap for Subsequent Phases (Phase F)](#roadmap-for-subsequent-phases-phase-f)
+6. [Phase F: Project Presentation & Practical Exam Defense](#phase-f-project-presentation--practical-exam-defense)
+   - [1. Presentation Structure, Slide Deck Architecture & Timing](#1-presentation-structure-slide-deck-architecture--timing)
+   - [2. Problem & Approach Synthesis Across 12 Slide Modules](#2-problem--approach-synthesis-across-12-slide-modules)
+   - [3. Live Interactive System Demonstration Walkthrough](#3-live-interactive-system-demonstration-walkthrough)
+   - [4. Summary of Quantitative Benchmark Results](#4-summary-of-quantitative-benchmark-results)
+   - [5. Practical Examination Viva Voce Defense Guide](#5-practical-examination-viva-voce-defense-guide)
+   - [6. Deployment Architecture, Artifact Links & Production Deliverables](#6-deployment-architecture-artifact-links--production-deliverables)
 
 ---
 
@@ -1279,9 +1285,247 @@ The measurable performance gains delivered by the post-processing and ensembling
 
 ---
 
-# Roadmap for Subsequent Phases (Phase F)
+---
 
-* **Phase F: Conclusion, Discussion & 2026 Production Deployment**  
-  Final synthesis of experimental findings, Pareto latency-accuracy trade-offs, deployment architectures on live streaming firehoses on X, discussion of 2026 LLM alternatives, and future extensions to multi-class sentiment grading ($-2$ to $+2$).
+# Phase F: Project Presentation & Practical Exam Defense
+
+**Academic Milestone:** CS-471 Natural Language Processing Final Examination & Practical Viva Voce  
+**Term:** Semester 7 (Fall 2026)  
+**Interactive Slide Deck:** [`docs/project_presentation.html`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/project_presentation.html)  
+**Speaker Guide & Defense Manual:** [`docs/PRESENTATION_GUIDE.md`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/PRESENTATION_GUIDE.md)  
+**Full Interactive UI Workbench:** [`docs/sentiment_ui_dashboard.html`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/sentiment_ui_dashboard.html)  
+
+---
+
+## 1. Presentation Structure, Slide Deck Architecture & Timing
+
+To ensure complete coverage of the project requirements during the practical examination week, the academic presentation is structured into **12 interactive slide modules** scheduled for a strict **15-minute viva voce session** (10 minutes slide walkthrough, 2 minutes interactive system demonstration, and 3 minutes examiner defense):
+
+```
++----------------------------------------------------------------------------------------------------+
+|                         PRACTICAL EXAMINATION PRESENTATION TIMING ALLOCATION                       |
++----------------------------------------------------------------------------------------------------+
+|                                                                                                    |
+|  [0:00 - 0:45]   Slide 01: Title, Project Scope & SOTA 83.58% Headline                             |
+|  [0:45 - 1:45]   Slide 02: Problem Formulation & 2026 Streaming Firehose Context                  |
+|  [1:45 - 2:45]   Slide 03: Microblog Linguistic Challenges (Slang, Elongation, Negation, Sarcasm)  |
+|  [2:45 - 3:45]   Slide 04: Dataset Exploration (1M Sentiment140 Corpus & Zipf's Law α=0.7817)     |
+|  [3:45 - 4:45]   Slide 05: Data Preprocessing Pipeline (Traditional vs. Specialized Social Regex)  |
+|  [4:45 - 5:45]   Slide 06: Multi-Paradigm Modeling Framework (Lexicon → Classical → Deep → Hybrid) |
+|  [5:45 - 7:00]   Slide 07: Deep Representation Transfer (GloVe 200d & Multi-Scale 4-Conv CNN)      |
+|  [7:00 - 8:15]   Slide 08: Quantitative Results (12-Model Master Benchmark & Leaderboard Victory)  |
+|  [8:15 - 9:15]   Slide 09: Post-Processing, Score Calibration & 5-Model Consensus Fusion           |
+|  [9:15 - 11:00]  Slide 10: Live Approach Demonstration (Embedded Real-Time Inference Workbench)    |
+|  [11:00 - 12:00] Slide 11: Confusion Matrix Dissection (200K Tests) & Qualitative Error Taxonomy   |
+|  [12:00 - 13:00] Slide 12: Production Deployment Architecture, Latency (<3ms) & Conclusions       |
+|  [13:00 - 15:00] Viva Voce Defense: Examiner Q&A, Mathematical Derivations & Code Inspection      |
+|                                                                                                    |
++----------------------------------------------------------------------------------------------------+
+```
+
+### Presentation Deck Technical Architecture
+* **Format:** Standalone, responsive HTML5 / Tailwind CSS interactive application (`docs/project_presentation.html`).
+* **Keyboard Navigation:** Full hardware keyboard event listeners (`ArrowRight`, `ArrowLeft`, `Space`) and touch-friendly controls.
+* **Speaker Notes System:** Built-in collapsible speaker notes pane toggled via the `Notes` button or keyboard shortcut (`N`), displaying exact timing checkpoints, verbatim cues, and theoretical justifications.
+* **Embedded Software Demonstration:** Slide 10 features a fully operational, client-side inference engine allowing the evaluation committee to type arbitrary social posts and inspect live preprocessing tokens, individual model votes, and calibrated confidence meters.
+
+---
+
+## 2. Problem & Approach Synthesis Across 12 Slide Modules
+
+### Module 1: Project Scope & Headline Achievements
+* **Slide 1:** Formally establishes the academic setting (CS-471 NLP, Semester 7, Fall 2026) and introduces the core project milestone: classifying sentiment across 1,000,000 microblog posts, culminating in a Kaggle leaderboard accuracy of **83.58%** using an ensemble of structurally diverse learners.
+
+### Module 2: Problem Formulation & 2026 Streaming Context
+* **Slide 2:** Defines binary sentiment classification over noisy microblogs:
+  $$\hat{y} = \arg\max_{c \in \{0, 1\}} P(Y = c \mid T; \Theta)$$
+  Contrasts modern 2026 70B+ Generative Large Language Models against compact discriminative ensembles. While commercial LLMs incur $>300\text{ ms}$ round-trip network latencies and thousands of dollars in monthly API costs, our specialized hybrid architecture runs locally with sub-3ms latency, zero API dependency, and 83.58% accuracy, proving that compact representation transfer remains optimal for live streaming firehoses.
+
+### Module 3: Microblog Linguistic Complexities
+* **Slide 3:** Identifies four primary NLP hurdles in social data:
+  1. *Morphological Elongations:* Character repetitions (`"sooooo haaaappyyyy"`) expanding the vocabulary space.
+  2. *Dense Emoticons & Emojis:* Punctuation glyphs (`":-)"`, `":("`) bearing critical sentiment polarity.
+  3. *Long-Range Negation:* Distant syntactic dependency spans (`"not exactly what I would call a thrilling experience"`).
+  4. *Rhetorical Irony & Sarcasm:* Positive lexical tokens embedded in adversarial contexts (`"Just love waiting 5 hours for my delayed flight!"`).
+
+### Module 4: Dataset Exploration & Zipf's Law Empirical Validation
+* **Slide 4:** Details the Stanford Sentiment140 corpus (1,000,000 total posts: 800,000 train, 200,000 test) with exact class balance ($50.04\%$ positive vs. $49.96\%$ negative). Reports empirical validation of Zipf's law:
+  $$\log(\text{Frequency}) = -0.7817 \log(\text{Rank}) + 13.3123 \quad (\alpha = 0.7817)$$
+  Demonstrates that microblogs exhibit a flatter, heavier tail ($\alpha < 1$) than formal literary corpora due to slang fragmentation.
+
+### Module 5: Data Preprocessing Pipeline (Traditional vs. Specialized)
+* **Slide 5:** Details the multi-tier cleaning architecture. Contrasts naive traditional preprocessing (which strips vital negation tokens) with specialized social regular expressions:
+  * Entity abstraction: URLs $\to$ `URL`, Mentions $\to$ `USER_MENTION`.
+  * Emoticon mapping: ASCII faces $\to$ `EMO_POS` / `EMO_NEG`.
+  * Morphological compression: compressing letter repetitions $\ge 3 \to 2$ (`"coooool"` $\to$ `"cool"`).
+  * Vocabulary impact: raw token dimensionality reduced by **$-48.2\%$** (from $>350\text{K}$ down to $181,232$ unigrams), doubling sparse matrix density.
+
+### Module 6: Multi-Paradigm Modeling Architecture
+* **Slide 6:** Presents the 4-tier modeling hierarchy:
+  1. Unsupervised Lexicons (VADER, TextBlob baselines).
+  2. Classical Machine Learning (Naive Bayes, Logistic Regression, Linear SVM) over sparse N-gram representations.
+  3. Deep Sequential & Convolutional Architectures (GloVe-initialized LSTMs and 1D CNNs).
+  4. Hybrid Transfer Learning (CNN feature maps feeding into maximum-margin SVMs).
+
+### Module 7: Deep Representation Transfer (GloVe 200d & Multi-Scale 4-Conv CNN)
+* **Slide 7:** Formulates the deep multi-scale 1D CNN architecture:
+  * Parallel convolution kernels of temporal window sizes $k \in \{2, 3, 4, 5\}$:
+    $$c_i = \text{ReLU}(\mathbf{W} \cdot \mathbf{x}_{i:i+k-1} + b)$$
+  * Global 1-max pooling over time:
+    $$\hat{c} = \max_{1 \le i \le n-k+1} c_i$$
+  * Concatenated 600-dimensional continuous representation vector capturing bigram modifiers, trigram phrases, and quadgram colloquialisms simultaneously.
+
+### Module 8: Quantitative Results & 12-Model Master Benchmark
+* **Slide 8:** Tabulates the full empirical benchmark across all 12 experimental architectures. Highlights the progression from Lexicon Baselines ($63.48\%$) $\to$ Classical Linear Models ($81.35\%$) $\to$ GloVe LSTMs ($83.00\%$) $\to$ 4-Conv CNN ($83.34\%$) $\to$ 4-Conv+SVM Hybrid ($83.39\%$) $\to$ **Calibrated 5-Model Ensemble ($83.58\%$)**.
+
+### Module 9: Post-Processing, Score Calibration & Consensus Ensembling
+* **Slide 9:** Explains the post-processing pipeline:
+  1. Platt scaling and Isotonic regression calibrating uncalibrated margins into true posterior probabilities.
+  2. 5-Model Heterogeneous Majority Voting: $75.4\%$ of tests resolved with overwhelming $5-0$ or $4-1$ consensus.
+  3. Domain-specific rule refinements recovering $3,420$ sarcastic false positives and $2,890$ negation false negatives.
+
+### Module 10: Live Approach Demonstration (Interactive Sentiment Workbench)
+* **Slide 10:** Embeds the interactive inference engine. Examiners can inspect real-time token normalization, component model consensus, and calibrated confidence meters on adversarial test prompts.
+
+### Module 11: Confusion Matrix Dissection & Qualitative Error Taxonomy
+* **Slide 11:** Thoroughly dissects the 200,000-sample test confusion matrix:
+  * $85,020$ True Positives ($42.51\%$)
+  * $82,140$ True Negatives ($41.07\%$)
+  * $17,860$ False Positives ($8.93\%$, driven by subtle literary irony)
+  * $14,980$ False Negatives ($7.49\%$, driven by truncated bereavement expressions)
+  * Precision: $82.64\%$, Recall: $85.02\%$, Macro-F1: $83.55\%$.
+
+### Module 12: Production Deployment, Latency & 2026 Roadmap
+* **Slide 12:** Synthesizes the project's engineering contributions:
+  * End-to-end inference latency under $2.8\text{ ms}$ per tweet ($>22,000\text{ tweets/sec}$ throughput).
+  * Future roadmap: 5-class sentiment grading ($-2$ to $+2$), distilled transformer student adapters, and multimodal visual tweet embeddings.
+
+---
+
+## 3. Live Interactive System Demonstration Walkthrough
+
+During the practical examination, the student demonstrates the operational classifier directly via Slide 10 or the companion workbench [`docs/sentiment_ui_dashboard.html`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/sentiment_ui_dashboard.html). The demonstration is organized around 4 live validation scenarios:
+
+| Test Scenario | Sample Input Tweet | Pipeline Transformation | Model Consensus | Calibrated Output |
+| :--- | :--- | :--- | :---: | :---: |
+| **1. Slang & Elongation** | `"OMG this is soooooo amazinggggg :DD"` | Normalizes to `"omg this is so amazing EMO_POS"` | 5-0 Unanimous Positive | **Positive (99.4%)** |
+| **2. Explicit Negation** | `"This phone is definitely not what I would call durable or fast."` | Tracks `"not"` across 6 tokens to `"durable"`, `"fast"` | 5-0 Unanimous Negative | **Negative (96.8%)** |
+| **3. Sarcastic Irony** | `"Just glorious, another 5-hour flight delay at the airport! Fantastic!"` | Identifies conflict: praise (`"glorious"`, `"fantastic"`) vs. delay anchor | Sarcasm Rule Override | **Negative (78.2%)** |
+| **4. Subordinated Mixed Review** | `"The camera is decent, but the battery life is utterly atrocious."` | Recognizes contrastive `"but"` clause dominant polarity | 4-1 Majority Negative | **Negative (91.5%)** |
+
+---
+
+## 4. Summary of Quantitative Benchmark Results
+
+The table below compiles the definitive quantitative evaluation across all 12 investigated models evaluated on the identical 200,000 tweet test set:
+
+| Model ID | Model Architecture | Representation / Features | Val Accuracy | Test / LB Accuracy | Macro-F1 | Latency / Post |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: |
+| **M01** | Rule-Based Lexicon (VADER/TextBlob) | Static Lexicon Lookup | 63.12% | 63.48% | 0.631 | 0.3 ms |
+| **M02** | Multinomial Naive Bayes | Unigrams (Term Frequency) | 77.45% | 77.82% | 0.776 | 0.5 ms |
+| **M03** | Multinomial Naive Bayes | Unigrams + Bigrams (Binary Presence) | 78.95% | 79.38% | 0.792 | 0.6 ms |
+| **M04** | Decision Tree Classifier | Top 10,000 Unigrams | 68.40% | 68.91% | 0.687 | 1.1 ms |
+| **M05** | Logistic Regression | Unigrams + Bigrams (TF-IDF) | 80.60% | 80.92% | 0.807 | 0.7 ms |
+| **M06** | Logistic Regression | Unigrams + Bigrams (Binary Presence) | 80.82% | 81.11% | 0.809 | 0.7 ms |
+| **M07** | Linear Support Vector Machine ($L_2$) | Unigrams + Bigrams (Binary Presence) | 81.05% | 81.35% | 0.812 | 0.8 ms |
+| **M08** | Vanilla Recurrent Neural Network (RNN) | Random 100d Embeddings | 76.80% | 77.20% | 0.769 | 3.2 ms |
+| **M09** | Long Short-Term Memory Network (LSTM) | GloVe 200d Embeddings | 82.68% | 83.00% | 0.828 | 2.9 ms |
+| **M10** | 4-Filter Convolutional Neural Network | GloVe 200d ($k \in \{2,3,4,5\}$) | 83.05% | 83.34% | 0.832 | 1.4 ms |
+| **M11** | Hybrid (4-Conv Feats + Linear SVM) | 600d Deep CNN Features + Max Margin | 83.15% | 83.39% | 0.833 | 1.6 ms |
+| **M12** | **Heterogeneous 5-Model Majority Ensemble** | **Calibrated Consensus Fusion** | **83.42%** | **83.58%** | **0.836** | **2.6 ms** |
+
+---
+
+## 5. Practical Examination Viva Voce Defense Guide
+
+The viva voce defense segment focuses on theoretical depth, mathematical justifications, and critical engineering trade-offs. The 8 primary examiner question domains and model defense answers are:
+
+### Topic 1: 2026 Large Language Models vs. Compact Discriminative Ensembles
+* **Examiner Query:** *"Given that 2026 LLMs (such as LLaMA 3.3 70B, GPT-4o, or Gemini 1.5) offer superior general reasoning, why should an engineering team deploy this compact ensemble architecture in production?"*
+* **Candidate Defense:**  
+  *"The decision between generative LLMs and compact discriminative ensembles is dictated by latency, cost, and throughput boundaries. Streaming social media platforms produce over 7,000 posts every second. An LLM API call entails 200–500 ms network latency and autoregressive decoding delays, with costs exceeding \$5,000/month per million daily posts.  
+  In contrast, our compiled CNN+SVM ensemble processes posts in under 2.8 ms with zero external network dependency, zero API cost, and 83.58% accuracy. For high-volume binary classification, dedicated representation transfer remains far superior in production efficiency."*
+
+### Topic 2: Binary Feature Presence vs. Continuous Term Frequency
+* **Examiner Query:** *"Why does binary feature presence ($x_i \in \{0, 1\}$) outperform continuous TF-IDF weighting on Twitter sentiment data?"*
+* **Candidate Defense:**  
+  *"Document length on microblogs is strictly constrained. In an average 15-token tweet, sentiment keywords (e.g., 'hate', 'delight') appear only once. When a word repeats ('love love love'), it denotes emotional emphasis rather than topical density. Continuous TF-IDF penalizes common sentiment words across short documents and inflates the importance of rare slang typos. Binary presence removes this distortion, yielding cleaner separating hyperplanes and an empirical +0.2% to +0.6% accuracy advantage."*
+
+### Topic 3: Inductive Bias of 1D Multi-Scale Convolutions
+* **Examiner Query:** *"What specific inductive bias makes a multi-scale 1D CNN superior to an LSTM for tweet sentiment classification?"*
+* **Candidate Defense:**  
+  *"An LSTM imposes a strict sequential inductive bias, forcing the hidden state $\mathbf{h}_t$ to retain long-range context across the entire sequence, which degrades over noisy informal text.  
+  Conversely, a 1D CNN with parallel kernel widths $k \in \{2, 3, 4, 5\}$ imposes a local compositional bias. It explicitly extracts salient n-gram phrases (bigram modifiers, trigram expressions) invariant to their absolute position. When paired with global 1-max pooling over time, the network selectively isolates the peak sentiment trigger, operating 2x faster than sequential recurrent steps."*
+
+### Topic 4: Maximum-Margin SVM vs. Softmax Cross-Entropy Loss
+* **Examiner Query:** *"Why did passing the deep CNN's 600-dimensional representations into a Linear SVM outperform the end-to-end Softmax layer?"*
+* **Candidate Defense:**  
+  *"Cross-entropy loss in Softmax layers optimizes the log-posterior probability distribution, pulling decision boundaries close to class margins when data points are separable.  
+  In contrast, the Linear SVM solves the primal convex optimization:  
+  $$\min_{\mathbf{w}, b} \frac{1}{2}\|\mathbf{w}\|^2 + C \sum_{i=1}^N \max(0, 1 - y_i(\mathbf{w}^T \mathbf{z}_i + b))$$  
+  This explicitly maximizes the geometric margin between positive and negative clusters in the 600-dimensional continuous feature space. The resulting margin provides superior generalization resistance against out-of-distribution test samples, lifting accuracy from 83.34% to 83.39%."*
+
+### Topic 5: Handling Class Imbalance in Real-World Streams
+* **Examiner Query:** *"The Sentiment140 corpus is balanced 50/50. If deployed on a real-time topic where 90% of tweets are neutral or negative, how would you prevent massive false positive drift?"*
+* **Candidate Defense:**  
+  *"We would apply two mechanisms:  
+  1. **Threshold Tuning on Calibrated Probabilities:** Because our post-processing pipeline uses Platt and isotonic calibration, the output represents true empirical posterior probabilities. We would adjust the classification decision threshold $\theta$ from 0.5 to a cost-sensitive threshold $\theta = \frac{C_{\text{FP}}}{C_{\text{FP}} + C_{\text{FN}}}$ based on domain prior distributions.  
+  2. **Class-Weighted Loss Optimization:** During SVM and logistic training, we would set sample weights inversely proportional to class frequencies: $w_c = \frac{N}{2 N_c}$, penalizing errors on the minority class."*
+
+### Topic 6: Sarcasm Mitigation Mechanism
+* **Examiner Query:** *"How does your post-processing pipeline identify and correct sarcastic posts without an explicit sarcasm detector?"*
+* **Candidate Defense:**  
+  *"Sarcasm typically exhibits lexical contradiction: surface praise words ('brilliant', 'wonderful') co-occurring with negative situational anchors ('delay', 'broken', 'stuck', 'hours').  
+  When our 5 individual models exhibit borderline uncertainty ($0.45 \le P \le 0.55$), the rule refinement engine executes an adversarial contradiction scan. If positive valence unigrams co-occur with verified frustration anchors, a post-hoc penalty $\Delta = -0.15$ is applied. This rule successfully converted 3,420 sarcastic false positives into correct negative classifications (a 19.2% relative error reduction)."*
+
+### Topic 7: Zipf's Law Theoretical Implications
+* **Examiner Query:** *"You calculated $\alpha = 0.7817$ for Zipf's law. What is the linguistic significance of $\alpha < 1$?"*
+* **Candidate Defense:**  
+  *"In formal edited English (such as Wikipedia or news), Zipf's exponent is approximately $\alpha \approx 1.0$. An exponent $\alpha = 0.7817$ indicates a shallower decay and a significantly heavier tail. On social media, word frequency does not drop off as steeply because user-generated slang, abbreviations, hashtag concatenations, and spelling variations distribute lexical probability mass across an unusually broad, fragmented vocabulary."*
+
+### Topic 8: Data Leakage Prevention Protocol
+* **Examiner Query:** *"What guarantees that your preprocessing steps and hyperparameter choices did not introduce subtle data leakage from the test set?"*
+* **Candidate Defense:**  
+  *"We maintained strict isolation protocol:  
+  1. The 800K train and 200K test partitions were split before any vocabulary indexing.  
+  2. The vocabulary mapping and IDF weights were fitted exclusively on the 800K training corpus; out-of-vocabulary tokens in the test set were mapped to an `<OOV>` token.  
+  3. All probability calibration transforms (Platt scaling and isotonic regression) were fitted on a cross-validated 10% holdout split of the training set, guaranteeing that the 200K test set remained strictly unpeaked until final evaluation."*
+
+---
+
+## 6. Deployment Architecture, Artifact Links & Production Deliverables
+
+All deliverables required for final semester evaluation, practical examination defense, and live software verification are maintained within the project repository:
+
+```
+twitter-sentiment-analysis/
+├── PROJECT_REPORT.md                 <-- Complete Course Project Report (Phases A–F)
+├── docs/
+│   ├── project_presentation.html     <-- 12-Slide Interactive Presentation Deck with UI
+│   ├── PRESENTATION_GUIDE.md         <-- Speaker Script, Timing & Viva Voce Manual
+│   ├── sentiment_ui_dashboard.html   <-- Full 4-Tab Engineering Workbench
+│   ├── model_accuracies_comparison.png
+│   ├── feature_type_comparison.png
+│   ├── cnn_depth_scaling.png
+│   ├── confusion_matrix.png
+│   ├── postprocessing_pipeline_comparison.png
+│   ├── wordcloud_positive.png
+│   ├── wordcloud_negative.png
+│   ├── wordcloud_overall.png
+│   ├── wordcloud_before_preprocessing.png
+│   ├── wordcloud_after_preprocessing.png
+│   ├── wordcloud_postproc_before_errors.png
+│   ├── wordcloud_postproc_after_clean_pos.png
+│   ├── wordcloud_postproc_after_clean_neg.png
+│   ├── wordcloud_uncertainty_borderline.png
+│   └── zipfs_law_plot.png
+└── ... (Source code, training scripts, baseline models)
+```
+
+### Presentation & System Startup Instructions
+1. **Interactive Slide Presentation Deck:** Open [`docs/project_presentation.html`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/project_presentation.html) in Google Chrome, Firefox, or Edge. Navigate using `ArrowLeft` / `ArrowRight` or `Space`.
+2. **Interactive Workbench:** Open [`docs/sentiment_ui_dashboard.html`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/sentiment_ui_dashboard.html) for comprehensive model-by-model benchmarking and confusion matrix inspection.
+3. **Defense Preparation:** Review [`docs/PRESENTATION_GUIDE.md`](file:///home/deepu/Academic%20Books/sem7/nlp/project/twitter-sentiment-analysis/docs/PRESENTATION_GUIDE.md) for verbatim speaker scripts, timing checkpoints, and examiner Q&A answers.
+
 
 

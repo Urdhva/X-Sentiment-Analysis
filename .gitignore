@@ -4,6 +4,11 @@
 *.csv
 *.h5
 *.hdf5
+*.keras
+*.pt
+*.bin
+models/
+code/models/
 glove*
 *.npy
 train-labels.txt
